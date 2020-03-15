@@ -12,6 +12,7 @@ public class RoadGenerator : MonoBehaviour
     public Vector2 distRange;
     public Vector2 nbCornersRange;
     public Vector2 dirNoise;
+    public Vector2 cornerDirNoise;
 
     public GameObject cornerPrefab;
 
@@ -132,7 +133,10 @@ public class RoadGenerator : MonoBehaviour
     private void CreateCorner(Road currentRoad, Vector3 previousLocation, Vector3 direction, int cornerIndex, int roadIndex)
     {
         //STRAIGHT ROAD
-        GameObject newCornerGo = Instantiate(cornerPrefab, previousLocation + direction * Random.Range((int)distRange.x, (int)distRange.y), Quaternion.identity, currentRoad.container.transform);
+        float randX = Random.Range(cornerDirNoise.x, cornerDirNoise.y);
+        float randY = Random.Range(cornerDirNoise.x, cornerDirNoise.y);
+        GameObject newCornerGo = Instantiate(cornerPrefab, previousLocation /*+ new Vector3(randX, 0f, randY)*/ + direction * Random.Range((int)distRange.x, (int)distRange.y),
+                                            Quaternion.identity, currentRoad.container.transform);
         LineRenderer mainRoadlineRenderer = currentRoad.lineRenderer;
 
         currentRoad.corners.AddLast(newCornerGo);
@@ -141,7 +145,7 @@ public class RoadGenerator : MonoBehaviour
         mainRoadlineRenderer.positionCount += 1;
         mainRoadlineRenderer.SetPosition(cornerIndex+1, newCornerGo.transform.position);
 
-        //PERIPHERAL ROADS
+        //PERIPHERAL ROAD
         //The current corner represents an index for each peripheral road
         if (cornerIndex < nbPeriphRoads)
         {
