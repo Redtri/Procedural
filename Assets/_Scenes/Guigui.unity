@@ -342,8 +342,9 @@ MonoBehaviour:
   center: {fileID: 1147296836}
   nbStraightRoads: 10
   nbPeriphRoads: 3
-  distRange: {x: 5, y: 30}
+  distRange: {x: 10, y: 20}
   nbCornersRange: {x: 3, y: 5}
+  dirNoise: {x: -15, y: 15}
   cornerPrefab: {fileID: 2429329974114056808, guid: b168bf334ed5bfb469b53e28ba56bb04,
     type: 3}
   roads: []
