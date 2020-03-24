@@ -14,11 +14,13 @@ public class RoadGenerator : MonoBehaviour
     public Vector2 dirNoise;
     public Vector2 cornerDirNoise;
 
+    public Material roadMaterial;
     public GameObject cornerPrefab;
 
     public List<Road> roads = new List<Road>();
     public List<Road> periphRoads = new List<Road>();
-
+    
+    
     [System.Serializable]
     public class Road
     {
@@ -27,13 +29,15 @@ public class RoadGenerator : MonoBehaviour
         public Vector3 origin;
         public LineRenderer lineRenderer;
         public LinkedList<GameObject> corners = new LinkedList<GameObject>();
-        public Road(string name, Transform trsf, LineRenderer lineRender, Vector3 startPoint, Transform topParent = null)
+        public Road(string name, Transform trsf, LineRenderer lineRender, Vector3 startPoint, Material mat, Transform topParent = null)
         {
             container = trsf;
             container.gameObject.name = name;
             origin = startPoint;
             lineRenderer = lineRender;
             lineRenderer.positionCount = 1;
+            lineRenderer.material = mat;
+            lineRenderer.textureMode = LineTextureMode.Tile;
             container.parent = topParent;
             corners = new LinkedList<GameObject>();
         }
@@ -60,7 +64,7 @@ public class RoadGenerator : MonoBehaviour
         periphRoads = new List<Road>(nbPeriphRoads);
         for(int i = 0; i < nbPeriphRoads; ++i) {
             GameObject newRoadGO = new GameObject();
-            Road currentRoad = new Road("PeriphRoad_" + i, newRoadGO.transform, newRoadGO.AddComponent<LineRenderer>(), Vector3.zero, this.transform);
+            Road currentRoad = new Road("PeriphRoad_" + i, newRoadGO.transform, newRoadGO.AddComponent<LineRenderer>(), Vector3.zero, roadMaterial,this.transform);
             periphRoads.Add(currentRoad);
         }
 
@@ -108,7 +112,7 @@ public class RoadGenerator : MonoBehaviour
     {
         //Spawning a Road GameObject that will contain nbCorners corners
         GameObject newRoadGo = new GameObject();
-        Road newRoad = new Road("StraightRoad_" + roads.Count, newRoadGo.transform, newRoadGo.AddComponent<LineRenderer>(), origin, this.transform);
+        Road newRoad = new Road("StraightRoad_" + roads.Count, newRoadGo.transform, newRoadGo.AddComponent<LineRenderer>(), origin, roadMaterial, this.transform);
 
         //Setting a random amount of corners
         newRoad.nbCorners = Random.Range((int)nbCornersRange.x, (int)nbCornersRange.y);
@@ -162,16 +166,6 @@ public class RoadGenerator : MonoBehaviour
             }
             periphRoads[cornerIndex].corners.AddLast(newCornerGo);
         }
-    }
-
-    private void BindCorners(LineRenderer render, GameObject cornerA, GameObject cornerB)
-    {
-        
-    }
-    
-    private void BindCorner()
-    {
-        
     }
 
     private void OnDrawGizmos()

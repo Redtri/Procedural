@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BuildingGenerator : MonoBehaviour
+public class DistrictGenerator : MonoBehaviour
 {
     public GameObject buildingPrefab;
     public Transform topParent;
@@ -29,7 +29,7 @@ public class BuildingGenerator : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
+        if(Input.GetKeyDown(KeyCode.G))
             GenerateDistricts();
     }
 
@@ -85,21 +85,14 @@ public class BuildingGenerator : MonoBehaviour
     
     public void GenerateBuildings(int nbBuildings, Vector3 a, Vector3 b, Vector3 c)
     {
+        Building building = GetComponent<Building>();
         //Instantiating empty gameobject container for the buildings
         GameObject newDistrictGo = new GameObject();
         newDistrictGo.transform.parent = topParent;
-        
+
         newDistrictGo.name = "District_" + districts.Count;
-        for (int i = 0; i < nbBuildings; ++i)
-        {
-            float r1 = Random.Range(0, minRange), r2 = Random.Range(0, minRange), r3 = Random.Range(0, minRange);
-
-            float x = (minRange - Mathf.Sqrt(r1)) * a.x + (Mathf.Sqrt(r1) * (minRange - r2)) * b.x + (Mathf.Sqrt(r1) * r2) * c.x;
-            float z = (minRange - Mathf.Sqrt(r1)) * a.z + (Mathf.Sqrt(r1) * (minRange - r2)) * b.z + (Mathf.Sqrt(r1) * r2) * c.z;
-
-            GameObject newBuildingGo = Instantiate( buildingPrefab, new Vector3(x, 0f, z), Quaternion.identity, newDistrictGo.transform);
-            newBuildingGo.GetComponent<MeshRenderer>().material.SetColor("_Color", currentColor);
-        }
+        
+        building.genAlea(newDistrictGo.transform, a, b, c);
     }
     
     public void GenerateBuildings(District district, Vector3 a, Vector3 b, Vector3 c, Vector3 d)
