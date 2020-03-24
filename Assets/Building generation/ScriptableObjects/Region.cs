@@ -11,4 +11,5 @@ public class Region : ScriptableObject
     public int maxBuildSpace;
     public float minRadius;
     public float maxRadius;
+    public float spawnPercent;
 }

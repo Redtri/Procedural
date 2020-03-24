@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dcc4c4f7a3847b45bc010bebb64fa08, type: 3}
   m_Name: Banlieue
   m_EditorClassIdentifier: 
-  minBuildSpace: 0
-  maxBuildSpace: 0
-  minRadius: 0
-  maxRadius: 0
+  minBuildSpace: 7
+  maxBuildSpace: 12
+  minRadius: 30.1
+  maxRadius: 60
+  spawnPercent: 0.7
