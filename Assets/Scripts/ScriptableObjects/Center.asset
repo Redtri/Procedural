@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dcc4c4f7a3847b45bc010bebb64fa08, type: 3}
-  m_Name: Hypercenter
+  m_Name: Center
   m_EditorClassIdentifier: 
+  sizeRange: {x: 1, y: 2}
   minBuildSpace: 1
-  maxBuildSpace: 3
-  minRadius: 0
-  maxRadius: 10
-  spawnPercent: 0.2
+  minRadius: 15.1
+  maxRadius: 30
+  spawnPercent: 0.6
+  buildingColor: {r: 0.745283, g: 0.6236817, b: 0.3480331, a: 0}

@@ -7,9 +7,15 @@ using UnityEngine;
 
 public class Region : ScriptableObject
 {
-    public int minBuildSpace;
-    public int maxBuildSpace;
+    public Vector2 sizeRange;
+    public float minBuildSpace;
     public float minRadius;
     public float maxRadius;
     public float spawnPercent;
+    public Color buildingColor;
+
+    public Vector3 GetSizeModifier()
+    {
+        return new Vector3(0f, Random.Range(sizeRange.x, sizeRange.y), 0f);
+    }
 }
